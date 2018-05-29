@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -37,6 +38,8 @@ public class WindowControl{
 	@FXML private TextField search;
 	private ProjectManager manager;
 	private Stage window;
+	@FXML
+	private Button newProject;
 	
 	public void makeWindow(Stage window) {
 		this.window = window;
@@ -131,6 +134,27 @@ public class WindowControl{
 		
 		
 	}
+	/**
+	 * @author Reza Amjad
+	 * This function will open a new window so user can create a new project
+	 */
+	@FXML
+	private void handelNewProject() {
+		try {
+            FXMLLoader loader= new FXMLLoader(getClass().getResource("/CreateNewProject.fxml"));
+            AnchorPane Ap =  loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Create Project");
+            Scene window = new Scene(Ap);
+            stage.setScene(window);
+            stage.show();
+            // Hide this current window (if this is what you want)
+           //(((Node) event.getSource())).getScene().getWindow().hide();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
 	
 	/**
 	 * Makes a copy of the selected projects.
@@ -139,11 +163,11 @@ public class WindowControl{
 	 * ***************DONT TOUCH THIS OCR CODE, I WILL FIX IT IN A WHILE
 	 */
 	public void handleCopy() {
-		/*
-		File imageFile = new File("C:\\Users\\Ty\\eclipse-workspace\\DIYProject\\SeattleBill.gif");
-        //ITesseract instance = new Tesseract();  // JNA Interface Mapping
-         ITesseract instance = new Tesseract1(); // JNA Direct Mapping
-         instance.setDatapath("C:\\Users\\Ty\\eclipse-workspace\\DIYProject\\tessdata");
+		//Edited by Kyle: removed hard coded paths
+		File imageFile = new File("SeattleBill.gif");
+        ITesseract instance = new Tesseract();  // JNA Interface Mapping
+        // ITesseract instance = new Tesseract1(); // JNA Direct Mapping
+        instance.setDatapath("./tessdata");
 
         try {
         	
@@ -151,10 +175,10 @@ public class WindowControl{
             //System.out.println(result);
             String thisPeriod = result.substring(result.indexOf("this period:")+13,result.indexOf("Same period")-1);
             int x = Integer.parseInt(thisPeriod);
-            System.out.println(x);
+            System.out.println(result);
         } catch (TesseractException e) {
             System.err.println(e.getMessage());
-        }*/
+        }
         
 
     }
